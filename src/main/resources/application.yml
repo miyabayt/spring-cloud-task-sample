@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    default: local
+  messages:
+    basename: messages
+    encoding: UTF-8
+  thymeleaf:
+    encoding: UTF-8

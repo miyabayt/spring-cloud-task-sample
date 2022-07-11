@@ -1,0 +1,44 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  messages:
+    cache-duration: -1
+  resources:
+    # キャッシュの無効化
+    cache:
+      period: 0
+  mail:
+    protocol: smtp
+    host: 127.0.0.1
+    port: 1025
+    username: test
+    password: test
+    properties:
+      mail:
+        from: test@example.com
+  datasource:
+    platform: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/spring-cloud-task-sample?useSSL=false&characterEncoding=UTF-8
+    username: root
+    password: passw0rd
+  flyway:
+    schemas: spring-cloud-task-sample
+    url: jdbc:mysql://127.0.0.1:3306/?allowPublicKeyRetrieval=true&useSSL=false
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    baseline-on-migrate: true
+    placeholder-replacement: false
+  batch:
+    jdbc:
+      initialize-schema: always
+  cloud:
+    task:
+      single-instance-enabled: true
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.EnumType: TRACE
+    org.springframework.cloud.task: DEBUG
