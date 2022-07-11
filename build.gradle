@@ -4,6 +4,7 @@ plugins {
     id "idea"
     id "org.springframework.boot" version "${springBootVersion}"
     id "io.spring.dependency-management" version "${dependencyManagementVersion}"
+    id "com.google.cloud.tools.jib" version "3.2.1"
     id "com.diffplug.spotless" version "${spotlessVersion}"
 }
 
@@ -85,6 +86,23 @@ dependencies {
     testImplementation platform("org.spockframework:spock-bom:${spockVersion}")
     testImplementation "org.spockframework:spock-core"
     testImplementation "org.mockito:mockito-core"
+}
+
+jib {
+    from {
+        image = "amazoncorretto:17"
+    }
+    container {
+        jvmFlags = [
+            "-Djava.awt.headless=true",
+            "-Djava.security.egd=file:/dev/./urandom",
+            "-Dfile.encoding=UTF-8",
+            "-Duser.language=ja",
+            "-Duser.country=JP",
+            "-Duser.timezone=Asia/Tokyo",
+            "-XX:MaxRAMPercentage=90"
+        ]
+    }
 }
 
 tasks.named("test") {
