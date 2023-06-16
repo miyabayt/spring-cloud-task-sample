@@ -4,10 +4,6 @@ spring:
       on-profile: local
   messages:
     cache-duration: -1
-  resources:
-    # キャッシュの無効化
-    cache:
-      period: 0
   mail:
     protocol: smtp
     host: 127.0.0.1
@@ -18,16 +14,12 @@ spring:
       mail:
         from: test@example.com
   datasource:
-    platform: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/spring-cloud-task-sample?useSSL=false&characterEncoding=UTF-8
     username: root
     password: passw0rd
   flyway:
-    schemas: spring-cloud-task-sample
-    url: jdbc:mysql://127.0.0.1:3306/?allowPublicKeyRetrieval=true&useSSL=false
-    user: ${spring.datasource.username}
-    password: ${spring.datasource.password}
+    enabled: true
     baseline-on-migrate: true
     placeholder-replacement: false
   batch:

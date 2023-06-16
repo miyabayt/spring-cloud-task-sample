@@ -2,7 +2,7 @@ spring:
   profiles:
     default: local
   messages:
-    basename: messages
+    basename: messages,ValidationMessages
     encoding: UTF-8
   thymeleaf:
     encoding: UTF-8

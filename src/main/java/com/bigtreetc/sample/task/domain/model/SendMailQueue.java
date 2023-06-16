@@ -1,11 +1,10 @@
 package com.bigtreetc.sample.task.domain.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -18,9 +17,7 @@ import org.springframework.data.domain.Persistable;
 @Table(name = "send_mail_queue")
 public class SendMailQueue implements Persistable<UUID> {
 
-  @Id
-  @Type(type = "uuid-char")
-  UUID id;
+  @Id UUID id;
 
   @Column(name = "from_address")
   String from;
