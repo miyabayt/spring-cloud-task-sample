@@ -5,22 +5,19 @@ import java.time.format.DateTimeFormatter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.listener.JobExecutionListenerSupport;
+import org.springframework.batch.core.JobExecutionListener;
 
 @Slf4j
-public abstract class BaseJobExecutionListener extends JobExecutionListenerSupport {
+public abstract class BaseJobExecutionListener implements JobExecutionListener {
 
   private static final DateTimeFormatter YYYY_MM_DD_HHmmss =
       DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
   @Override
-  public void beforeJob(JobExecution jobExecution) {}
-
-  @Override
   public void afterJob(JobExecution jobExecution) {
     val batchId = getBatchId();
     val batchName = getBatchName();
-    val jobStatus = jobExecution.getStatus().getBatchStatus();
+    val jobStatus = jobExecution.getStatus();
     val startTime = jobExecution.getStartTime();
     val endTime = jobExecution.getEndTime();
     log.info("*********************************************");

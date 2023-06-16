@@ -32,7 +32,4 @@ public class SendMailQueueItemReader extends AbstractPagingItemReader<SendMailQu
       results.addAll(pages.getContent());
     }
   }
-
-  @Override
-  protected void doJumpToPage(int itemIndex) {}
 }
