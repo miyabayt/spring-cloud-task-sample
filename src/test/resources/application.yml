@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    default: test
+    active: test
+  messages:
+    basename: messages,ValidationMessages
+    encoding: UTF-8
+  thymeleaf:
+    encoding: UTF-8
+  mail:
+    protocol: smtp
+    host: 127.0.0.1
+    port: 1025
+    username: test
+    password: test
+    properties:
+      mail:
+        from: test@example.com
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    baseline-on-migrate: true
+    placeholder-replacement: false
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false

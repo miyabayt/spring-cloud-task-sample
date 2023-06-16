@@ -9,7 +9,6 @@ import lombok.val;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.MailException;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -30,7 +29,7 @@ public class SendMailQueueProcessor implements ItemProcessor<SendMailQueue, Send
     try {
       sendMailHelper.sendMail(fromAddress, to, cc, bcc, subject, body);
       sendMailQueue.setSentAt(LocalDateTime.now());
-    } catch (MailException e) {
+    } catch (Exception e) {
       // skip
       log.warn("cloud not send mail. [id={}]", sendMailQueue.getId());
       return null;

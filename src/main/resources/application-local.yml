@@ -19,10 +19,7 @@ spring:
     username: root
     password: passw0rd
   flyway:
-    schemas: spring-cloud-task-sample
-    url: jdbc:mysql://127.0.0.1:3306/?allowPublicKeyRetrieval=true&useSSL=false
-    user: ${spring.datasource.username}
-    password: ${spring.datasource.password}
+    enabled: true
     baseline-on-migrate: true
     placeholder-replacement: false
   batch:

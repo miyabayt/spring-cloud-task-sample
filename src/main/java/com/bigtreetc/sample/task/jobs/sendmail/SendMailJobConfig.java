@@ -1,5 +1,6 @@
 package com.bigtreetc.sample.task.jobs.sendmail;
 
+import com.bigtreetc.sample.task.base.listener.LoggingJobExecutionListener;
 import com.bigtreetc.sample.task.base.listener.LoggingStepExecutionListener;
 import com.bigtreetc.sample.task.domain.model.SendMailQueue;
 import com.bigtreetc.sample.task.domain.repository.SendMailQueueRepository;
@@ -56,7 +57,7 @@ public class SendMailJobConfig {
   public Job sendMailJob(JobRepository jobRepository, @Qualifier("sendMailStep") Step step) {
     return new JobBuilder("sendMailJob", jobRepository)
         .incrementer(new RunIdIncrementer())
-        .listener(new SendMailJobExecutionListener())
+        .listener(new LoggingJobExecutionListener())
         .flow(step)
         .end()
         .build();
