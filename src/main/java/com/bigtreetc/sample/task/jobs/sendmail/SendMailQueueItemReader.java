@@ -23,9 +23,8 @@ public class SendMailQueueItemReader extends AbstractPagingItemReader<SendMailQu
       results.clear();
     }
 
-    val page = getPage(); // 1ページは0になる
     val perpage = getPageSize();
-    val pageable = PageRequest.of(page, perpage);
+    val pageable = PageRequest.of(0, perpage);
 
     val pages = sendMailQueueRepository.findBySentAtIsNull(pageable);
     if (!pages.isEmpty()) {
