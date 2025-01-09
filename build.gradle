@@ -1,9 +1,15 @@
+buildscript {
+    dependencies {
+        classpath "com.google.cloud.tools:jib-spring-boot-extension-gradle:0.1.0"
+    }
+}
+
 plugins {
     id "java"
     id "groovy"
     id "idea"
     id "org.springframework.boot" version "${springBootVersion}"
-    id "com.google.cloud.tools.jib" version "3.3.2"
+    id "com.google.cloud.tools.jib" version "3.4.2"
     id "com.diffplug.spotless" version "${spotlessVersion}"
 }
 
@@ -45,9 +51,9 @@ spotless {
     lineEndings "UNIX"
 }
 
-sourceCompatibility = "17"
+sourceCompatibility = "21"
 [compileJava, compileTestJava, compileGroovy, compileTestGroovy]*.options*.encoding = "UTF-8"
-[compileJava, compileTestJava, compileGroovy, compileTestGroovy]*.options*.compilerArgs = ["--enable-preview", "-Xlint:all"]
+[compileJava, compileTestJava, compileGroovy, compileTestGroovy]*.options*.compilerArgs = ["-Adoma.metamodel.enabled=true", "-parameters", "-Xlint:all"]
 
 dependencyManagement {
     imports {
@@ -72,7 +78,6 @@ dependencies {
     implementation "org.springframework.integration:spring-integration-jdbc"
     developmentOnly "org.springframework.boot:spring-boot-docker-compose"
 
-
     implementation "org.flywaydb:flyway-core"
     implementation "org.flywaydb:flyway-mysql"
     runtimeOnly "com.mysql:mysql-connector-j"
@@ -95,8 +100,13 @@ dependencies {
 }
 
 jib {
+    pluginExtensions {
+        pluginExtension {
+            implementation = "com.google.cloud.tools.jib.gradle.extension.springboot.JibSpringBootExtension"
+        }
+    }
     from {
-        image = "amazoncorretto:17"
+        image = "public.ecr.aws/amazoncorretto/amazoncorretto:21"
     }
     container {
         jvmFlags = [
@@ -115,7 +125,12 @@ tasks.named("test") {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
+        exceptionFormat = "full"
+        showCauses = true
+        showExceptions = true
+        showStackTraces = true
     }
+    systemProperty "spring.profiles.active", "test"
 }
 
 compileJava.dependsOn "spotlessApply"
