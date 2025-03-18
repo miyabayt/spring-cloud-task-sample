@@ -9,7 +9,7 @@ plugins {
     id "groovy"
     id "idea"
     id "org.springframework.boot" version "${springBootVersion}"
-    id "com.google.cloud.tools.jib" version "3.4.4"
+    id "com.google.cloud.tools.jib" version "3.4.5"
     id "com.diffplug.spotless" version "${spotlessVersion}"
 }
 
